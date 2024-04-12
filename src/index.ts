@@ -3,12 +3,13 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { join } from 'node:path'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchemaSync } from '@graphql-tools/load'
+import {Author, Book} from "./generated/graphql";
 
 const typeDefs = loadSchemaSync(join("./src", 'schema.graphql'), {
     loaders: [new GraphQLFileLoader()]
 });
 
-const authors = [
+const authors: Author[] = [
     {
         name: 'Kate Chopin'
     },
@@ -17,7 +18,7 @@ const authors = [
     }
 ];
 
-const books = [
+const books: Book[] = [
     {
         title: 'The Awakening',
         author: authors[0]
@@ -28,17 +29,15 @@ const books = [
     },
 ];
 
-
-
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
     Query: {
-        books: () => books,
-        authors: () => authors
+        books: (): Book[] => books,
+        authors: (): Author[] => authors
     },
     Mutation: {
-        addBook: (parent, args, ctx, info) => {
+        addBook: (parent, args, ctx, info): Book => {
             books.push({title: args.title, author: {name: args.author}})
             return books[books.length-1];
         }
