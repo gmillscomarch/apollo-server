@@ -1,22 +1,25 @@
-# The "Query" type is special: it lists all of the available queries that
-# clients can execute, along with the return type for each. In this
-# case, the "books" query returns an array of zero or more Books (defined above).
 type Query {
-    books: [Book]
-    authors: [Author]
+    guilds: [Guild]!
+    guildById(id: String): Guild
 }
 
-type Mutation {
-    addBook(title: String, author: String): Book
+type Character {
+    name: String!
 }
 
-# This "Book" type defines the queryable fields for every book in our data source.
-type Book {
-    title: String
-    author: Author
-}
+# Harry Potter Houses endpoint
+type Guild {
+    id: String!
+    name: String!
+    colors: String
+    founder: Character
 
-type Author {
-    name: String
-    books: [Book]
+    # element+animal
+    symbol: String
+    ghost: String
+    room: String
+    heads: [Character]!
+
+    # comma separated list of all trait's names
+    traits: String
 }
