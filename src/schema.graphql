@@ -3,11 +3,25 @@ type Query {
     guildById(id: String): Guild
 }
 
+type Mutation {
+    addGuild(house: HouseInput): Guild
+}
+
+input HouseInput {
+    id: String!
+    name: String!
+    colors: String
+    founder: String
+    animal: String
+    element: String
+    ghost: String
+    commonRoom: String
+}
+
 type Character {
     name: String!
 }
 
-# Harry Potter Houses endpoint
 type Guild {
     id: String!
     name: String!

@@ -24,7 +24,7 @@ const server = new ApolloServer({
 const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
     context: async ({ req, res }) => ({
-        harryPotterDataSource: new HarryPotterDataSource(),
+        harryPotterDataSource: await HarryPotterDataSource.create(),
     })
 });
 
